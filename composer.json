@@ -1,11 +1,19 @@
 {
-    "name": "laravel/laravel",
+    "name": "functional-coding/php-laravel",
+    "description": "The Laravel Application.",
+    "authors": [
+        {
+            "email": "dbwhddn10@gmail.com",
+            "name": "jongwoo Yoo"
+        }
+    ],
+    "keywords": [
+        "laravel"
+    ],
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": ">=7.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
@@ -38,9 +46,6 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
