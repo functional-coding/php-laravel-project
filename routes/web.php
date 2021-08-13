@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use FunctionalCoding\Illuminate\Http\RequestInputValueCastingMiddleware;
 use FunctionalCoding\Illuminate\Http\ServiceParameterSettingMiddleware;
 use FunctionalCoding\Illuminate\Http\ServiceRunMiddleware;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 $prefix = str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR);
@@ -32,7 +31,7 @@ Route::group([
         ServiceParameterSettingMiddleware::class,
         RequestInputValueCastingMiddleware::class,
     ],
-], function () use ($router) {
+], function () {
     // Route::get('examples', 'ExampleController@index');
     // Route::get('examples/{id}', 'ExampleController@show');
     Route::get('/', function () {
