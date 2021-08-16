@@ -1,5 +1,5 @@
 {
-    "name": "functional-coding/php-laravel",
+    "name": "functional-coding/php-laravel-project",
     "description": "The Laravel Application.",
     "authors": [
         {
@@ -15,7 +15,8 @@
     "require": {
         "php": ">=7.4",
         "fruitcake/laravel-cors": "^2.0",
-        "functional-coding/php-illuminate": "dev-master",
+        "functional-coding/php": "dev-master",
+        "functional-coding/php-eloquent-orm": "dev-master",
         "functional-coding/php-jwt": "dev-master",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
