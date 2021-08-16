@@ -11,9 +11,9 @@
 |
 */
 
-use FunctionalCoding\Illuminate\Http\RequestInputValueCastingMiddleware;
-use FunctionalCoding\Illuminate\Http\ServiceParameterSettingMiddleware;
-use FunctionalCoding\Illuminate\Http\ServiceRunMiddleware;
+use App\Http\Middlewares\RequestInputValueCastingMiddleware;
+use App\Http\Middlewares\ServiceParameterSettingMiddleware;
+use App\Http\Middlewares\ServiceRunMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 

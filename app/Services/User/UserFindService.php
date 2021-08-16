@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class UserFindService extends Service
