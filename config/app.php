@@ -162,8 +162,8 @@ return [
         // // App\Providers\BroadcastServiceProvider::class,
         // App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        FunctionalCoding\Illuminate\Providers\ServiceValidationProvider::class,
-        FunctionalCoding\Illuminate\Providers\ModelRelationMapProvider::class,
+        App\Providers\ModelRelationMapProvider::class,
+        FunctionalCoding\Illuminate\ValidationProvider::class,
     ],
 
     /*
