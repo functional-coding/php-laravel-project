@@ -6,7 +6,7 @@ use App\Models\User;
 use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
-class UserFindingService extends Service
+class UserFindService extends Service
 {
     public static function getArrBindNames()
     {
