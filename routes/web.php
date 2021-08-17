@@ -33,7 +33,7 @@ Route::group([
     ],
 ], function () {
     // Route::get('examples', 'ExampleController@index');
-    // Route::get('examples/{id}', 'ExampleController@show');
+    Route::get('users/{id}', 'UserController@show');
     Route::get('/', function () {
         dd('hello world');
     });
