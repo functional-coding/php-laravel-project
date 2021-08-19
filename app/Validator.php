@@ -14,11 +14,6 @@ class Validator extends \Illuminate\Validation\Validator
             $customAttributes
         );
 
-        $this->sizeRules = array_merge($this->sizeRules, [
-            // ... add custom rules
-            'Less',
-            'More',
-        ]);
         $this->implicitRules = array_merge($this->implicitRules, [
             // ... add custom rules
         ]);
@@ -27,19 +22,13 @@ class Validator extends \Illuminate\Validation\Validator
         ]);
     }
 
-    public function addError($attribute, $rule, $parameters)
-    {
-        return parent::addError($attribute, $rule, $parameters);
-    }
-
     public function getDisplayableAttribute($attribute)
     {
         $pAttr = $this->getPrimaryAttribute($attribute);
         $asteriskKeys = $this->getExplicitKeys($attribute);
-        $cAttr = $this->getCustomAttribute($pAttr);
-        $matches = [];
+        $cAttr = isset($this->customAttributes[$pAttr]) ? $this->customAttributes[$pAttr] : $pAttr;
 
-        if ([] != $asteriskKeys) {
+        if (!empty($asteriskKeys)) {
             $cAttr = str_replace('*', $asteriskKeys[0], $cAttr);
         }
 
@@ -65,110 +54,30 @@ class Validator extends \Illuminate\Validation\Validator
         return in_array($mime, ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml']);
     }
 
-    public function validateDate($attribute, $value)
-    {
-        return is_string($value) && preg_match('/^(19|20)(\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])$/', $value);
-    }
-
-    public function validateFalse($attribute, $value, $parameters, $validator)
-    {
-        return false === $value || 'false' === $value || 0 === $value || '0' === $value;
-    }
-
-    public function validateInIf($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'in_if');
-
-        $parameters[0] = $this->getValue($parameters[0]);
-
-        if ($parameters[0] != $parameters[1]) {
-            return true;
-        }
-
-        $parameters = array_slice($parameters, 2);
-
-        return $this->validateIn($attribute, $value, $parameters);
-    }
-
     public function validateIntegers($attribute, $value)
     {
-        if (!$this->validateString($attribute, $value) && !$this->validateInteger($attribute, $value)) {
+        if (!$this->validateString(null, $value) && !$this->validateInteger(null, $value)) {
+            return false;
+        }
+
+        if (empty($value)) {
             return false;
         }
 
         $integers = preg_split('/\s*,\s*/', $value);
-        $result = true;
 
         foreach ($integers as $integer) {
-            !$this->validateInteger($attribute, $integer) ?
-                $result = false : null;
+            if (!$this->validateInteger(null, $integer)) {
+                return false;
+            }
         }
 
-        return $result;
-    }
-
-    public function validateInUnless($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'in_less');
-
-        $parameters[0] = $this->getValue($parameters[0]);
-
-        if ($parameters[0] == $parameters[1]) {
-            return true;
-        }
-
-        $parameters = array_slice($parameters, 2);
-
-        return $this->validateIn($attribute, $value, $parameters);
-    }
-
-    public function validateLess($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(1, $parameters, 'less');
-
-        if ($value instanceof UploadedFile && !$value->isValid()) {
-            return false;
-        }
-
-        return $this->getSize($attribute, $value) < $parameters[0];
-    }
-
-    public function validateMore($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(1, $parameters, 'more');
-
-        return $this->getSize($attribute, $value) > $parameters[0];
+        return true;
     }
 
     public function validateNotNull($attribute, $value)
     {
-        return !$this->validateNull($attribute, $value);
-    }
-
-    public function validateNotNullIf($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'not_null_if');
-
-        $ifValue = $this->getValue($parameters[0]);
-
-        if ($ifValue != $parameters[1]) {
-            return true;
-        }
-
-        return $this->validateNotNull($attribute, $value);
-    }
-
-    public function validateNotNullUnless($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'not_null_unless');
-
-        $ifValue = $this->getValue($parameters[0]);
-
-        if ($ifValue == $parameters[1]) {
-            return true;
-        }
-
-        return $this->validateNotNull($attribute, $value);
+        return !$this->validateNull(null, $value);
     }
 
     public function validateNull($attribute, $value)
@@ -180,118 +89,18 @@ class Validator extends \Illuminate\Validation\Validator
         return false;
     }
 
-    public function validateNullIf($attribute, $value, $parameters)
+    public function validateSomeOfArray($attribute, $value, $parameters, $validator)
     {
-        $this->requireParameterCount(2, $parameters, 'null_if');
+        $this->requireParameterCount(1, $parameters, 'some_of_array');
 
-        $ifValue = $this->getValue($parameters[0]);
-
-        if ($ifValue != $parameters[1]) {
-            return true;
-        }
-
-        return $this->validateNull($attribute, $value);
-    }
-
-    public function validateNullUnless($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'null_unless');
-
-        $ifValue = $this->getValue($parameters[0]);
-
-        if ($ifValue == $parameters[1]) {
-            return true;
-        }
-
-        return $this->validateNull($attribute, $value);
-    }
-
-    public function validateMax($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(1, $parameters, 'max');
-
-        $limit = $parameters[0];
-
-        if (array_key_exists($limit, $this->data)) {
-            $parameters[0] = $this->getValue($limit);
-        }
-
-        return parent::validateMax($attribute, $value, $parameters);
-    }
-
-    public function validateMin($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(1, $parameters, 'min');
-
-        $limit = $parameters[0];
-
-        if (array_key_exists($limit, $this->data)) {
-            $parameters[0] = $this->getValue($limit);
-        }
-
-        return parent::validateMin($attribute, $value, $parameters);
-    }
-
-    public function validateRequiredIfContain($attribute, $value, $parameters)
-    {
-        $this->requireParameterCount(2, $parameters, 'required_if_contain');
-
-        $search = $this->getValue($parameters[0]);
-        $string = $parameters[1];
-
-        if (false !== strpos($search, $string)) {
-            return $this->validateRequired($attribute, $value);
-        }
-
-        return true;
-    }
-
-    public function validateSeveralIn($attribute, $value, $parameters, $validator)
-    {
-        $this->requireParameterCount(1, $parameters, 'several_in');
-
-        $isValid = true;
         $value = preg_split('/\s*,\s*/', $value);
         $options = $this->getValue($parameters[0]);
 
-        foreach ($value as $key) {
-            if (!in_array($key, $options)) {
-                $isValid = false;
-            }
-        }
-
-        return $isValid;
+        return count($value) == count(array_intersect($value, $options));
     }
 
-    public function validateTrue($attribute, $value, $parameters, $validator)
+    protected function replaceSomeOfArray($message, $attribute, $rule, $parameters)
     {
-        return true === $value || 'true' === $value || 1 === $value || '1' === $value;
-    }
-
-    protected function getCustomAttribute($key)
-    {
-        if (array_key_exists($key, $this->customAttributes)) {
-            return $this->customAttributes[$key];
-        }
-
-        return $key;
-    }
-
-    protected function replaceLess($message, $attribute, $rule, $parameters)
-    {
-        return str_replace(':less', $parameters[0], $message);
-    }
-
-    protected function replaceMore($message, $attribute, $rule, $parameters)
-    {
-        return str_replace(':more', $parameters[0], $message);
-    }
-
-    protected function replaceSeveralIn($message, $attribute, $rule, $parameters)
-    {
-        $options = $this->getValue($parameters[0]);
-        $options = implode(',', $options);
-
-        return str_replace(':list', $options, $message);
+        return str_replace(':list', $this->getDisplayableAttribute($parameters[0]), $message);
     }
 }

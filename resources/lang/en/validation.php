@@ -124,6 +124,14 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    // custom
+    'integers' => ':attribute must be integers separated by commas.',
+    'base64' => ':attribute must be base64 encoded string.',
+    'base64_image' => ':attribute must be base64 encoded image.',
+    'null' => ':attribute must not exist.',
+    'not_null' => ':attribute must exist.',
+    'some_of_array' => 'The :attribute must be some of :list.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
