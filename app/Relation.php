@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class Relation extends \Illuminate\Database\Eloquent\Relations\Relation
 {
+    protected $isManyRelation;
     protected $localKeys;
     protected $otherKeys;
-    protected $isManyRelation;
 
     public function __construct(Query $query, Model $parent, array $localKeys, array $otherKeys, $isManyRelation)
     {
@@ -18,21 +18,6 @@ class Relation extends \Illuminate\Database\Eloquent\Relations\Relation
         $this->isManyRelation = $isManyRelation;
 
         parent::__construct($query, $parent);
-    }
-
-    public function getLocalValue($model, $key)
-    {
-        if (':auth_user_id:' == $key && Auth::user()) {
-            $val = Auth::user()->getKey();
-        } elseif (':auth_user_id:' == $key) {
-            $val = null;
-        } elseif (':model_type:' == $key) {
-            $val = array_flip(static::morphMap())[get_class($model)];
-        } else {
-            $val = $model->getAttributes()[$key];
-        }
-
-        return $val;
     }
 
     public function addConstraints()
@@ -62,6 +47,36 @@ class Relation extends \Illuminate\Database\Eloquent\Relations\Relation
         }
 
         $this->query->whereRaw($colRow.' in ('.implode(',', $valRows).')');
+    }
+
+    public function getLocalValue($model, $key)
+    {
+        if (':auth_user_id:' == $key && Auth::user()) {
+            $val = Auth::user()->getKey();
+        } elseif (':auth_user_id:' == $key) {
+            $val = null;
+        } elseif (':model_type:' == $key) {
+            $val = array_flip(static::morphMap())[get_class($model)];
+        } else {
+            $val = $model->getAttributes()[$key];
+        }
+
+        return $val;
+    }
+
+    public function getResults()
+    {
+        foreach ($this->localKeys as $key) {
+            if (is_null($this->parent->{$key})) {
+                return;
+            }
+        }
+
+        if ($this->isManyRelation) {
+            return $this->get();
+        }
+
+        return $this->first();
     }
 
     public function initRelation(array $models, $relation)
@@ -112,20 +127,5 @@ class Relation extends \Illuminate\Database\Eloquent\Relations\Relation
         }
 
         return $models;
-    }
-
-    public function getResults()
-    {
-        foreach ($this->localKeys as $key) {
-            if (is_null($this->parent->{$key})) {
-                return;
-            }
-        }
-
-        if ($this->isManyRelation) {
-            return $this->get();
-        }
-
-        return $this->first();
     }
 }
