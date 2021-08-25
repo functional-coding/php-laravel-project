@@ -22,19 +22,6 @@ class Validator extends \Illuminate\Validation\Validator
         ]);
     }
 
-    public function getDisplayableAttribute($attribute)
-    {
-        $pAttr = $this->getPrimaryAttribute($attribute);
-        $asteriskKeys = $this->getExplicitKeys($attribute);
-        $cAttr = isset($this->customAttributes[$pAttr]) ? $this->customAttributes[$pAttr] : $pAttr;
-
-        if (!empty($asteriskKeys)) {
-            $cAttr = str_replace('*', $asteriskKeys[0], $cAttr);
-        }
-
-        return $cAttr;
-    }
-
     public function validateBase64($attribute, $value, $parameters, $validator)
     {
         if (base64_encode(base64_decode($value, true)) === $value) {
