@@ -12,6 +12,7 @@
 */
 
 use App\Http\Middlewares\RequestInputValueCastingMiddleware;
+use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
 use App\Http\Middlewares\ServiceParameterSettingMiddleware;
 use App\Http\Middlewares\ServiceRunMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::group([
         ServiceRunMiddleware::class,
         ServiceParameterSettingMiddleware::class,
         RequestInputValueCastingMiddleware::class,
+        ResponseHeaderSettingMiddleware::class,
     ],
 ], function () {
     // Route::get('examples', 'ExampleController@index');
