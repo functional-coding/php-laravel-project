@@ -33,12 +33,25 @@ class Validator extends \Illuminate\Validation\Validator
 
     public function validateBase64Image($attribute, $value, $parameters, $validator)
     {
-        $image = base64_decode($value);
+        $matches = [];
+        if (!preg_match('/^data\:(.*)\;base64\,(.*)$/', $value, $matches)) {
+            return false;
+        }
+
+        if (!in_array($matches[1], ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'])) {
+            return false;
+        }
+
+        $image = base64_decode($matches[2]);
         $f = finfo_open();
         $mime = finfo_buffer($f, $image, FILEINFO_MIME_TYPE);
         finfo_close($f);
 
-        return in_array($mime, ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml']);
+        if ($mime != $matches[1]) {
+            return false;
+        }
+
+        return true;
     }
 
     public function validateIntegers($attribute, $value)
