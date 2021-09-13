@@ -49,6 +49,11 @@ class ServiceParameterSettingMiddleware
             $names['order_by'] = '[order_by]';
         }
 
+        if (array_key_exists('group_by', $ruleLists) || $request->offsetExists('group_by')) {
+            $data['group_by'] = Arr::get($request->all(), 'group_by', '');
+            $names['group_by'] = '[group_by]';
+        }
+
         if (array_key_exists('cursor_id', $ruleLists) || $request->offsetExists('cursor_id')) {
             $data['cursor_id'] = Arr::get($request->all(), 'cursor_id', '');
             $names['cursor_id'] = '[cursor_id]';
