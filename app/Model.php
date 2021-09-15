@@ -8,6 +8,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
     public const UPDATED_AT = null;
 
     public $incrementing = false;
+    protected $dateFormat = 'Y-m-d H:i:s';
     protected $guarded = [];
 
     public function getModelType()
