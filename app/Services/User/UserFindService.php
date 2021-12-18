@@ -8,7 +8,7 @@ use FunctionalCoding\Service;
 
 class UserFindService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'result' => 'user for {{id}}',
@@ -20,7 +20,7 @@ class UserFindService extends Service
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'available_expands' => function () {
@@ -33,17 +33,17 @@ class UserFindService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             FindService::class,
