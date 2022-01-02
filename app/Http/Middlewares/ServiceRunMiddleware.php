@@ -16,9 +16,6 @@ class ServiceRunMiddleware
     public function handle($request, $next)
     {
         DB::beginTransaction();
-        DB::enableQueryLog();
-
-        chdir('../');
 
         $response = $next($request);
         $arr = $response->getOriginalContent();
