@@ -625,12 +625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php-eloquent-ORM.git",
-                "reference": "bb5af72aa1a7d1ca1e99edf272b084912164c3e8"
+                "reference": "ed1e51593bb67b827adfe948ae314ebc54174731"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/bb5af72aa1a7d1ca1e99edf272b084912164c3e8",
-                "reference": "bb5af72aa1a7d1ca1e99edf272b084912164c3e8",
+                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/ed1e51593bb67b827adfe948ae314ebc54174731",
+                "reference": "ed1e51593bb67b827adfe948ae314ebc54174731",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "issues": "https://github.com/functional-coding/php-eloquent-ORM/issues",
                 "source": "https://github.com/functional-coding/php-eloquent-ORM/tree/master"
             },
-            "time": "2022-01-02T10:14:27+00:00"
+            "time": "2022-01-02T17:17:26+00:00"
         },
         {
             "name": "functional-coding/php-jwt",
@@ -678,12 +678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php-JWT.git",
-                "reference": "fb019cfedf37237d32a4d12c7a18477d5d69f4ab"
+                "reference": "f2a35e5878d4a8d713545c3d094843a1733b88ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php-JWT/zipball/fb019cfedf37237d32a4d12c7a18477d5d69f4ab",
-                "reference": "fb019cfedf37237d32a4d12c7a18477d5d69f4ab",
+                "url": "https://api.github.com/repos/functional-coding/php-JWT/zipball/f2a35e5878d4a8d713545c3d094843a1733b88ad",
+                "reference": "f2a35e5878d4a8d713545c3d094843a1733b88ad",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
                 "issues": "https://github.com/functional-coding/php-JWT/issues",
                 "source": "https://github.com/functional-coding/php-JWT/tree/master"
             },
-            "time": "2021-12-18T05:48:29+00:00"
+            "time": "2022-01-02T10:13:39+00:00"
         },
         {
             "name": "graham-campbell/result-type",
