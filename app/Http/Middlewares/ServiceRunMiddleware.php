@@ -51,9 +51,11 @@ class ServiceRunMiddleware
                 $data = $this->restify($result);
             }
             $body = ['result' => $data];
+            $response->setStatusCode(200);
             DB::commit();
         } else {
             $body = ['errors' => $errors];
+            $response->setStatusCode(400);
             DB::rollback();
         }
 
