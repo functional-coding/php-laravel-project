@@ -33,7 +33,7 @@ class ServiceRunMiddleware
 
         $service = Service::initService($arr);
         $result = $service->run();
-        $errors = $service->totalErrors();
+        $errors = $service->getTotalErrors();
 
         if (empty($errors)) {
             if ($result instanceof AbstractPaginator) {
