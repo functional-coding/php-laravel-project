@@ -625,12 +625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php-eloquent-ORM.git",
-                "reference": "ce90151d5406396f6ef3afc07beed34038cd9c2b"
+                "reference": "f6b8d15ebe502f02b7e31ce5a11533f6bbcfb1b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/ce90151d5406396f6ef3afc07beed34038cd9c2b",
-                "reference": "ce90151d5406396f6ef3afc07beed34038cd9c2b",
+                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/f6b8d15ebe502f02b7e31ce5a11533f6bbcfb1b8",
+                "reference": "f6b8d15ebe502f02b7e31ce5a11533f6bbcfb1b8",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "issues": "https://github.com/functional-coding/php-eloquent-ORM/issues",
                 "source": "https://github.com/functional-coding/php-eloquent-ORM/tree/master"
             },
-            "time": "2022-01-02T19:39:29+00:00"
+            "time": "2022-01-03T02:54:17+00:00"
         },
         {
             "name": "functional-coding/php-jwt",
