@@ -163,8 +163,7 @@ return [
         // App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ModelRelationMapProvider::class,
-        App\Providers\ValidationProvider::class,
-        FunctionalCoding\Illuminate\ValidationProvider::class,
+        App\Providers\LocaleProvider::class,
     ],
 
     /*
